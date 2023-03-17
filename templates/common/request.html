@@ -1,0 +1,93 @@
+{% extends "common/main.html" %}
+{% block title %}Contact | Delecious Rolls{% endblock %}
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+
+<section class="ftco-section container text-align-center">
+    <div class="container-fluid text-center">
+        <div class="card card-2 d-inline-flex p-2">
+            <div class="card-body container-fluid  text-center">
+                <div class="row">
+                    <div class="col-md-5" style="padding: 0;">
+                        <img class="img-fluid" src="{% static '/images/Cooking.gif' %}" height="350px" style="max-height: 350px;">
+                    </div>
+                    <div class="col-md-6 d-flex align-items-center d-inline-flex p-2" >
+                        <div class="row d-inline-flex p-2">
+                            <form method="POST" action="" class="contact-form" onsubmit="return xSubmit(this);">
+				            	{% csrf_token %}
+				            	<div class="form-group">
+				            		<input type="hidden" name="u_name" value="{{request.user.first_name|title}}">
+				            		<input type="hidden" name="u_email" value="{{request.user.email}}">
+				            	</div>
+				            	<div class="form-group">
+				            		<input type="text" class="form-control" placeholder="Name of Dish"  name="dish_name" required="">
+				            	</div>
+				            	<div class="row">
+				            		<div class="col-md-6">
+				            			<div class="form-group">
+				            				<input type="text" class="form-control" placeholder="Category" name="category">
+				            			</div>
+				            		</div>
+				            		<div class="col-md-6">
+				            			<div class="form-group">
+				            				<input type="text" class="form-control" placeholder="Sub Category" name="sub_category">
+				            			</div>
+				            		</div>
+				            	</div>
+				            	<div class="form-check">
+					            	<div class="row">
+					            		<div class="col-md-6">
+					            			<div class="form-group">
+					            				<input class="form-check-input" type="radio" name="food_type" id="nonveg" value="nonveg" checked="">
+					            				<label class="form-check-label" for="nonveg">Non Vegetarian</label>
+					            			</div>
+					            		</div>
+					            		<div class="col-md-6">
+					            			<div class="form-group">
+					            				<input class="form-check-input" type="radio" name="food_type" id="veg" value="veg">
+					            				<label class="form-check-label" for="nonveg">Vegetarian</label>
+					            			</div>
+					            		</div>
+					            	</div>
+					            </div>
+				            	<div class="form-group">
+				            		<input type="text" class="form-control" placeholder="Other Details" name="other"></textarea>
+				            	</div>
+				            	<div class="form-group">
+				            		<input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
+				            	</div>
+				            </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+	function xSubmit(frm) {
+		$.post($(frm).attr('action'),$(frm).serializeArray());
+		alert("The request has been submitted");
+		window.close();
+		return false;
+	}
+</script>
+<style type="text/css">
+    .ftco-section {padding: 2em 0;position: relative;}
+    .card-2 {box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.4)}
+    .card-2:hover {box-shadow: 2px 2px 6px 2px rgba(0, 0, 0, 0.6)}
+    .left_algn{text-align: left;}
+	select{cursor: pointer;}
+	select:focus,.select:hover{outline: none;border: 1px solid #bbbbbb}
+	select option{background-color: #121618; padding: 2rem;display: block;position: absolute;}
+	select option:focus{outline: none; border: none;}
+</style>
+
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script>
+	$(".home").removeClass('active');
+	$(".profile").addClass('active');
+</script>
+
+{% endblock %}

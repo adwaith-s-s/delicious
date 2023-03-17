@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <title>{% block title %}{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="{% static 'images/favicon.png' %}" rel="icon" type="image/png">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nothing+You+Could+Do" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/open-iconic-bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/aos.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery.timepicker.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navavtar.css' %}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="/"><img src="{% static 'images/logo.svg' %}" style="height: 70px;"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> Menu
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item home active"><a href="/" class="nav-link">Home</a></li>
+                    <li class="nav-item dish"><a href="/product/" class="nav-link">Dishes</a></li>
+                    <li class="nav-item about"><a href="/about/" class="nav-link">About</a></li>
+                    <li class="nav-item contact"><a target="_blank" href="/contact" class="nav-link">Contact</a></li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item dropdown profile">
+                        <a class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown"> <img src="/media/{{request.user.userprofile.avatar}}" class="avatar avatar-sm rounded-circle"> {{request.user.first_name|title}}</a>
+                        <ul class="dropdown-menu profile_drop">
+                            <li><a class="dropdown-item" href="/profile/"> Profile </a></li>
+                            <li><a class="dropdown-item" href="/wishlist/"> Wishlist </a></li>
+                            <li><a class="dropdown-item" href="/order/"> Orders </a></li>
+                            <li><a target="_blank" class="dropdown-item" href="/request/"> Request </a></li>
+                            <li><a class="dropdown-item" href="/logout/"> Logout </a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item cart"><a href="/cart/" class="nav-link"> <i class="flaticon-shopping-cart-2" style="font-size: 1.5rem;"></i><span class="badge badge-warning badge-circle cart-count"></span></a></li>
+                    {% else %}
+                        <li class="nav-item register"><a href="/login/" class="nav-link">Sign In</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- END nav -->
+
+    {% block content %}{% endblock %}
+
+    <footer class="ftco-footer ftco-section img">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-4 col-md-6 mb-5 mb-md-5">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2">About Us</h2>
+                        <p>We deliver the healthier yummier foods made by elite chefs. we deliver our products all over Kannur. Get the best food in no time.</p>
+                        <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+                            <li class="ftco-animate"><a href="https://twitter.com/adwaith_ss"><span class="icon-twitter"></span></a></li>
+                            <li class="ftco-animate"><a href="https://www.facebook.com/adwaith.ss.1997"><span class="icon-facebook"></span></a></li>
+                            <li class="ftco-animate"><a href="https://www.instagram.com/adwaith.ss/?hl=en"><span class="icon-instagram"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-5 mb-md-5">
+                    <div class="ftco-footer-widget mb-4 ml-md-4">
+                        <h2 class="ftco-heading-2">Services</h2>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="py-2 d-block">Master Cooked</a></li>
+                            <li><a href="#" class="py-2 d-block">Fast Delivery</a></li>
+                            <li><a href="#" class="py-2 d-block">Quality Foods</a></li>
+                            <li><a href="#" class="py-2 d-block">Favorite Recipies</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-5 mb-md-5">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2">Have a Questions?</h2>
+                        <div class="block-23 mb-3">
+                            <ul>
+                                <li><span class="icon icon-map-marker"></span><span class="text">Kannur University Campus, Managettuparamba, Kannur Kerala, India, PIN 670 567</span></li>
+                                <li><a href="tel://+91 8111 819 045"><span class="icon icon-phone"></span><span class="text">+91 8111 81 9045</span></a></li>
+                                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">adwaithss1997@yahoo.com</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+
+                    <p>
+                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> <i class="icon-heart" aria-hidden="true"></i> Adwaith_ss</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+    <style type="text/css">
+        button:focus{outline: none;}
+        .profile_drop{
+            background-color: #121618 !important;
+            margin-top: -15px;
+        }
+
+        .profile_drop li a { color: #BFBFBF !important; }
+        .profile_drop li a:hover { color: #FAC564 !important;background-color: #121618 !important; }
+        .profile_drop li a:focus { color: #FAC564 !important;background-color: #121618 !important; }
+    </style>
+
+    <script>
+                // alert('hai');
+                $.ajax({
+                    url:"/get_cart/",
+                    type:'GET',
+                    // data:{'email':email},
+                    success:function(response){
+                        if(response.count){
+                            $(".cart-count").text(response.count);
+                        }
+                    },
+                    error:function(){}
+                });
+            </script>
+
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/jquery-migrate-3.0.1.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.easing.1.3.js' %}"></script>
+    <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/aos.js' %}"></script>
+    <script src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-datepicker.js' %}"></script>
+    <script src="{% static 'js/jquery.timepicker.min.js' %}"></script>
+    <script src="{% static 'js/scrollax.min.js' %}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="{% static 'js/google-map.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/sweetalert/sweetalert.min.js' %}"></script>
+
+</body>
+</html>

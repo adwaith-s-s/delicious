@@ -1,0 +1,176 @@
+{% extends 'common/main.html'%}
+{% load static %}
+{% block title %}{{request.user.first_name|title}} | Delicious Rolls{% endblock %}
+{% block content %}
+{% load mathfilters %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+<section class="ftco-section" style="padding-top: 0;!important">
+  <div class="main-content" >      
+    <!-- Header -->
+    <div class="header pb-8 pt-5  d-flex align-items-center">
+      <!-- Mask -->
+     
+      <!-- Header container -->
+      <div class="container-fluid d-flex align-items-center padding">
+        <div class="row">
+          <div class="col-lg-7 col-md-10">
+            <h1 class="display-2 text-white">Hello {{request.user.first_name|title}}</h1>
+            <p class="text-white mt-0 mb-5">This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p>
+            <a href="/editprofile" class="btn btn-primary">Edit profile</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--7">
+      <div class="row">
+        <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+          <div class="card card-profile shadow">
+            <div class="row justify-content-center">
+              <div class="col-lg-3 order-lg-2">
+                <div class="card-profile-image">
+                  <img src="/media/{{request.user.userprofile.avatar}}" class="rounded-circle">
+                </div>
+              </div>
+            </div>
+            <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+              <div class="d-flex justify-content-between">
+                <a target="__blank" href="/request/" class="btn btn-sm btn-default float-right">Request</a>
+              </div>
+            </div>
+            <div class="card-body pt-0 pt-md-4">
+              <div class="row">
+                <div class="col">
+                  <div class="card-profile-stats d-flex justify-content-center mt-md-5">
+                    <div>
+                      <span class="heading">{{order.count}}</span>
+                      <span class="description">Orders</span>
+                    </div>
+                    <div>
+                      <span class="heading">{{delivered.count}}</span>
+                      <span class="description">Delivered</span>
+                    </div> 
+                    <div>
+                      <span class="heading">{{order.count|sub:delivered.count}}</span>
+                      <span class="description">Pending</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                <h1>
+                  {{request.user.first_name|title}} {{request.user.last_name|title}}
+                </h1>
+                <div class="h5 font-weight-300">
+                  <i class="ni location_pin mr-2">{{request.user.userprofile.address|title}}</i>
+                </div>
+                <div class="h5 mt-4">
+                  <i class="ni business_briefcase-24 mr-2">{{request.user.userprofile.district|title}}, {{request.user.userprofile.state|title}}</i>
+                </div>
+                <div>
+                  <i class="ni education_hat mr-2"></i>{{request.user.email}}
+                </div>
+                <div>
+                <hr class="my-4">
+                <p>{{request.user.first_name|title}}, thanks for being a part of Delicious Rolls</p>
+                <div class="form-group">
+                <a href="/order/">View Orders</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        <div class="col-xl-8 order-xl-1">
+          <div class="card bg-secondary shadow">
+            <div class="card-header bg-white border-0">
+              <div class="row align-items-center">
+                <div class="col-8">
+                  <h3 class="mb-0">My account</h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <form>
+                <h6 class="heading-small text-muted mb-4">User information</h6>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-username">Email address</label>
+                        <p class="form-control form-control-alternative">{{request.user.email}}</p>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">Phone Number</label>
+                        <p class="form-control form-control-alternative">{{request.user.userprofile.mobile}}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-first-name">First name</label>
+                        <p class="form-control form-control-alternative">{{request.user.first_name|title}}</p>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-last-name">Last name</label>
+                        <p class="form-control form-control-alternative">{{request.user.last_name|title}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="my-4">
+                <!-- Address -->
+                <h6 class="heading-small text-muted mb-4">Contact information</h6>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-address">Address</label>
+                        <p class="form-control form-control-alternative">{{request.user.userprofile.address|title}}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-city">District</label>
+                        <p class="form-control form-control-alternative">{{request.user.userprofile.district|title}}</p>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-country">State</label>
+                        <p class="form-control form-control-alternative">{{request.user.userprofile.state|title}}</p>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-control-label">Postal code</label>
+                        <p class="form-control form-control-alternative">{{request.user.userprofile.pin}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="my-4">
+                <!-- Description -->
+                
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script>
+	$(".home").removeClass('active');
+	$(".profile").addClass('active');
+</script>
+
+{% endblock %}

@@ -1,0 +1,186 @@
+{% extends "administrator/main.html" %}
+{% load static %}
+{% block title %}Admin | Delicious Rolls{% endblock %}
+{% block content %}
+{% load mathfilters %}
+
+<script src="{% static 'admin/js/plugin/datatables/datatables.min.js' %}"></script>
+
+<div class="content">
+	<div class="page-inner">
+		<div class="row">
+			<div class="col-sm-6 col-md-3">
+				<div class="card card-stats card-primary card-round">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-5">
+								<div class="icon-big text-center">
+									<i class="flaticon-users"></i>
+								</div>
+							</div>
+							<div class="col-7 col-stats">
+								<div class="numbers">
+									<p class="card-category">Messages</p>
+									<h4 class="card-title">{{ message.paginator.count }}</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6 col-md-3">
+				<div class="card card-stats card-info card-round">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-5">
+								<div class="icon-big text-center">
+									<i class="flaticon-interface-6"></i>
+								</div>
+							</div>
+							<div class="col-7 col-stats">
+								<div class="numbers">
+									<p class="card-category">Subscribers</p>
+									<h4 class="card-title">1303</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6 col-md-3">
+				<div class="card card-stats card-success card-round">
+					<div class="card-body ">
+						<div class="row">
+							<div class="col-5">
+								<div class="icon-big text-center">
+									<i class="flaticon-analytics"></i>
+								</div>
+							</div>
+							<div class="col-7 col-stats">
+								<div class="numbers">
+									<p class="card-category">Sales</p>
+									<h4 class="card-title">$ 1,345</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6 col-md-3">
+				<div class="card card-stats card-secondary card-round">
+					<div class="card-body ">
+						<div class="row">
+							<div class="col-5">
+								<div class="icon-big text-center">
+									<i class="flaticon-success"></i>
+								</div>
+							</div>
+							<div class="col-7 col-stats">
+								<div class="numbers">
+									<p class="card-category">Order</p>
+									<h4 class="card-title">576</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="page-header">
+			<h4 class="page-title">Messages</h4>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header ml-3">
+						<div class="row">
+							<h4 class="card-title">Customer Message</h4>
+							<p class="ml-2 mt-1">Page <b>{{ message.number }}</b> - {{ message.paginator.num_pages }} of <b>{{ message.paginator.count }}</b> messages</p>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table id="multi-filter-select" class="display table table-striped table-hover">
+								<thead>
+									<tr>
+										<th>Customer Name</th>
+										<th>Customer Email</th>
+										<th>Mobile</th>
+										<th>Subject</th>
+										<th>Message</th>
+										<th>Created Date</th>
+										<th>Updated Date</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for x in message %}
+										<tr class="card-header">
+											<td>{{x.name}}</td>
+											<td><a href="mailto:{{x.email}}">{{x.email}}</a></td>
+											<td><a href="tel://{{x.mobile}}">{{x.mobile}}</a></td>
+											<td>{{x.subject}}</td>
+											<td>{{x.message}}</td>
+											<td>{{x.createdDate}}</td>
+											<td>{{x.updatedDate}}</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+								<tfoot>
+									<div class="demo">
+										
+										<ul class="pagination pg-primary">
+											{% if message.has_previous %}
+					                            <li class="page-item"><a class="page-link" href="?page={{ message.previous_page_number }}">&lt; </a></li>
+					                        {% else %}
+					                            <li class="page-item disabled"><a class="page-link">&lt; </span></li>
+					                        {% endif %}
+											{% if message.number|add:'-5' > 5 %}
+					                            <li class="page-item"><a class="page-link" href="?page={{ message.number|add:'-5' }}">&hellip;</a></li>
+					                        {% endif %}
+					                        {% for i in message.paginator.page_range %}
+					                            {% if message.number == i %}
+					                                <li class="active page-item"><a class="page-link">{{ i }}</a></li>
+					                            {% elif i > message.number|add:'-5' and i < message.number|add:'5' %}
+					                                <li><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+					                            {% endif %}
+					                        {% endfor %}
+					                        {% if message.paginator.num_pages > message.number|add:'5' %}
+					                            <li><a class="page-link" href="?page={{ message.number|add:'5' }}">&hellip;</a></li>
+					                        {% endif %}
+											{% if order.has_next %}
+					                            <li><a class="page-link" href="?page={{ message.next_page_number }}">&gt;</a></li>
+					                        {% else %}
+					                            <li class="page-item disabled"><a class="page-link">&gt;</a></li>
+					                        {% endif %}
+										</ul>
+									</div>
+								</tfoot>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script>
+	$(".dashboard").removeClass('active');
+	$(".messages").addClass('active');
+
+	$('.status').change(function() {
+		this.form.submit();
+	});
+
+</script>
+<style>
+	.select{cursor: pointer;}
+	.select:focus,.select:hover{outline: none;border: 1px solid #bbbbbb}
+	.select option{padding: 2rem;display: block;position: absolute;}
+	body{line-height: 2rem;}
+	.table td, .table th {padding: .5rem 15px !important;}
+	thead{color: #EEEEEE;background-color: #151d33;border-radius: 10px !important;}
+	a{color: #8d9498;}
+</style>
+
+{% endblock %}
